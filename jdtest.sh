@@ -11,8 +11,8 @@ function monkcoder(){
     rm -rf /monkcoder /scripts/dust_*
     git clone https://github.com/monk-coder/dust.git /monkcoder
     # 拷贝脚本
-    cp /longzhuzhu/qx/jd_half_redrain.js /monkcoder/jd_half_redrain.js
-    cp /longzhuzhu/qx/jd_super_redrain.js /monkcoder/jd_super_redrain.js
+    # cp /longzhuzhu/qx/jd_half_redrain.js /monkcoder/jd_half_redrain.js
+    # cp /longzhuzhu/qx/jd_super_redrain.js /monkcoder/jd_super_redrain.js
     cp /longzhuzhu/qx/jd-live-rain.json /scripts
     cp /longzhuzhu/qx/jd-half-rain.json /scripts
     
