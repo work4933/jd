@@ -4,10 +4,18 @@
 #### 由于更新可能引入未知BUG,建议复制脚本内容至GIST使用
 
 function monkcoder(){
+    # https://github.com/nianyuguai/longzhuzhu
+    rm -rf /longzhuzhu
+    git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
     # https://github.com/monk-coder/dust
     rm -rf /monkcoder /scripts/dust_*
     git clone https://github.com/monk-coder/dust.git /monkcoder
     # 拷贝脚本
+    cp /longzhuzhu/qx/jd_half_redrain.js /monkcoder/jd_half_redrain.js
+    cp /longzhuzhu/qx/jd_super_redrain.js /monkcoder/jd_super_redrain.js
+    cp /longzhuzhu/qx/jd-live-rain.json /scripts
+    cp /longzhuzhu/qx/jd-half-rain.json /scripts
+    
     for jsname in $(find /monkcoder -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/dust_${jsname##*/}; done
     # 匹配js脚本中的cron设置定时任务
     for jsname in $(find /monkcoder -name "*.js" | grep -vE "\/backup\/"); do
