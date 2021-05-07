@@ -2,26 +2,31 @@
 ## 编辑docker-compose.yml文件添加 - CUSTOM_SHELL_FILE=https://raw.githubusercontent.com/mixool/jd_sku/main/jd_diy.sh
 ### CUSTOM_SHELL_FILE for https://gitee.com/lxk0301/jd_docker/tree/master/docker
 #### 由于更新可能引入未知BUG,建议复制脚本内容至GIST使用
+# https://raw.githubusercontent.com/monk-coder/dust/dust/shell_script_mod.sh
+# https://raw.githubusercontent.com/mixool/jd_sku/main/jd_diy.sh
+
+function owner(){
+	cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography
+	cd / && pip3 install wheel telethon pysocks httpx requests Cython
+	git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
+    git clone https://github.com/Tartarus2014/Script.git /Tartarus2014
+    git clone https://github.com/whyour/hundun.git /whyour
+    git clone https://github.com/moposmall/Script.git /moposmall
+    git clone https://gitee.com/qq34347476/quantumult-x /qq34347476
+    git clone https://github.com/yichahucha/surge.git /yichahucha
+    git clone https://github.com/monk-coder/dust.git /monk-coder
+    # https://github.com/monk-coder/dust
+    rm -rf /scripts/longzhuzhu_*
+    # 拷贝脚本
+    for jsname in $(find /longzhuzhu/qx -name "*.js"); do cp ${jsname} /scripts/longzhuzhu_${jsname##*/}; done
+}
 
 function monkcoder(){
-    # https://github.com/nianyuguai/longzhuzhu
-    rm -rf /longzhuzhu
-    git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
     # https://github.com/monk-coder/dust
     rm -rf /monkcoder /scripts/dust_*
     git clone https://github.com/monk-coder/dust.git /monkcoder
     # 拷贝脚本
-    # cp /longzhuzhu/qx/jd_half_redrain.js /monkcoder/jd_half_redrain.js
-    # cp /longzhuzhu/qx/jd_super_redrain.js /monkcoder/jd_super_redrain.js
-    cp /longzhuzhu/qx/jd-live-rain.json /scripts
-    cp /longzhuzhu/qx/jd-half-rain.json /scripts
-    
     for jsname in $(find /monkcoder -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/dust_${jsname##*/}; done
-    # 匹配js脚本中的cron设置定时任务
-    for jsname in $(find /monkcoder -name "*.js" | grep -vE "\/backup\/"); do
-        jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
-        test -z "$jsnamecron" || echo "$jsnamecron node /scripts/dust_${jsname##*/} >> /scripts/logs/dust_${jsname##*/}.log 2>&1" >> /scripts/docker/merged_list_file.sh
-    done
 }
 
 function whyour(){
@@ -39,7 +44,7 @@ function zcy01(){
 
 function diycron(){
     # monkcoder whyour 定时任务
-    for jsname in /scripts/dust_*.js /scripts/whyour_*.js; do
+    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/longzhuzhu_*.js; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3).log 2>&1" >> /scripts/docker/merged_list_file.sh
     done
@@ -56,9 +61,10 @@ function main(){
     # DIY脚本
     a_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     a_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
-    monkcoder
+    owner
+	monkcoder
     whyour
-    zcy01
+    #zcy01
     b_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     b_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
     # DIY任务
@@ -71,6 +77,7 @@ function main(){
     test -z "$lxktext" || curl -sX POST "https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage" -d "chat_id=$TG_USER_ID&text=LXK脚本更新完成：$(cat /jd_sku/crontab_list.sh | grep -vE "^#" | wc -l) $(cat /scripts/docker/crontab_list.sh | grep -vE "^#" | wc -l) $lxktext" >/dev/null
     # 拷贝docker目录下文件供下次更新时对比
     cp -rf /scripts/docker/* /jd_sku
+	cd /scripts && npm install --save got tough-cookie qiniu ws bufferutil utf-8-validate
 }
 
 main
