@@ -6,9 +6,9 @@
 # https://raw.githubusercontent.com/mixool/jd_sku/main/jd_diy.sh
 
 function owner(){
-	cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography
-	cd / && pip3 install wheel telethon pysocks httpx requests Cython
-	git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
+    cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography
+    cd / && pip3 install wheel telethon pysocks httpx requests Cython
+    git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
     git clone https://github.com/Tartarus2014/Script.git /Tartarus2014
     git clone https://github.com/whyour/hundun.git /whyour
     git clone https://github.com/moposmall/Script.git /moposmall
@@ -18,7 +18,8 @@ function owner(){
     # https://github.com/monk-coder/dust
     rm -rf /scripts/longzhuzhu_*
     # 拷贝脚本
-    for jsname in $(find /longzhuzhu/qx -name "*.js"); do cp ${jsname} /scripts/longzhuzhu_${jsname##*/}; done
+    for jsname in $(find /longzhuzhu/qx -name "*.js"); do cp -rf ${jsname} /scripts/longzhuzhu_${jsname##*/}; done
+    for jsonname in $(find /longzhuzhu/qx -name "*.json"); do cp -rf ${jsonname} /scripts/${jsonname##*/}; done
 }
 
 function monkcoder(){
@@ -62,7 +63,7 @@ function main(){
     a_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     a_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
     owner
-	monkcoder
+    monkcoder
     whyour
     #zcy01
     b_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
