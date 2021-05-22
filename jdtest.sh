@@ -6,7 +6,7 @@
 # https://raw.githubusercontent.com/mixool/jd_sku/main/jd_diy.sh
 
 function owner(){
-    cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography
+    cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
     cd / && pip3 install wheel telethon pysocks httpx requests Cython
     git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
     git clone https://github.com/Tartarus2014/Script.git /Tartarus2014
