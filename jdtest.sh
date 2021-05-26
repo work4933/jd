@@ -8,6 +8,7 @@
 function owner(){
     cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
     cd / && pip3 install wheel telethon pysocks httpx requests Cython
+    git clone https://github.com/sngxpro/QuanX.git /sngxpro
     git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
     git clone https://github.com/Tartarus2014/Script.git /Tartarus2014
     git clone https://github.com/whyour/hundun.git /whyour
@@ -45,7 +46,7 @@ function zcy01(){
 
 function diycron(){
     # monkcoder whyour 定时任务
-    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/longzhuzhu_*.js; do
+    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/owner_*.js /scripts/longzhuzhu_*.js; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3).log 2>&1" >> /scripts/docker/merged_list_file.sh
     done
