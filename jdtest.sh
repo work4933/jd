@@ -69,6 +69,7 @@ function main(){
     #zcy01
     b_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     b_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
+    bash /home/shell-test.sh
     # DIY任务
     diycron
     # DIY脚本更新TG通知
