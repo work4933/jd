@@ -15,7 +15,7 @@ function owner(){
     git clone https://github.com/moposmall/Script.git /moposmall
     git clone https://gitee.com/qq34347476/quantumult-x /qq34347476
     git clone https://github.com/yichahucha/surge.git /yichahucha
-    git clone https://github.com/monk-coder/dust.git /monk-coder
+    git clone https://github.com/PalmerCharles/monk-dust.git /monk-coder
     # https://github.com/monk-coder/dust
     rm -rf /scripts/longzhuzhu_*
     # 拷贝脚本
@@ -26,7 +26,7 @@ function owner(){
 function monkcoder(){
     # https://github.com/monk-coder/dust
     rm -rf /monkcoder /scripts/dust_*
-    git clone https://github.com/monk-coder/dust.git /monkcoder
+    git clone https://github.com/PalmerCharles/monk-dust.git /monkcoder
     # 拷贝脚本
     for jsname in $(find /monkcoder -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/dust_${jsname##*/}; done
 }
