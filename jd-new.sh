@@ -21,8 +21,8 @@ function nianyuguai(){
     # https://github.com/nianyuguai/longzhuzhu.git
     rm -rf /longzhuzhu /scripts/longzhuzhu_*
     git clone -b main https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
-    for jsname in $(find /longzhuzhu/qx -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/longzhuzhu_${jsname##*/}; done
-    for jsonname in $(find /longzhuzhu/qx -name "*.json" | grep -vE "\/backup\/"); do cp ${jsonname} /scripts/${jsname##*/}; done
+    for jsname in $(ls /longzhuzhu/qx | grep -oE ".*\js$"); do cp -rf /longzhuzhu/qx/$jsname /scripts/longzhuzhu_$jsname; done
+    for jsonname in $(ls /longzhuzhu/qx | grep -oE ".*\json$"); do cp -rf /longzhuzhu/qx/$jsonname /scripts/$jsonname; done
 }
 
 function zcy01(){
