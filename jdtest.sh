@@ -8,6 +8,7 @@
 function owner(){
     cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
     cd / && pip3 install wheel telethon pysocks httpx requests Cython
+    git clone https://github.com/Wenmoux/scripts.git /wenmoux
     git clone https://github.com/sngxpro/QuanX.git /sngxpro
     git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
     git clone https://github.com/Tartarus2014/Script.git /Tartarus2014
@@ -38,6 +39,13 @@ function whyour(){
     for jsname in jdzz.js jx_nc.js jx_factory.js jx_factory_component.js ddxw.js dd_factory.js jd_zjd_tuan.js; do cp -rf /whyour/quanx/$jsname /scripts/whyour_$jsname; done
 }
 
+function wenmoux(){
+    rm -rf /wenmoux /scripts/wenmoux_*
+    git clone https://github.com/Wenmoux/scripts.git /wenmoux
+    # 拷贝脚本
+    for jsname in $(find /wenmoux/jd -name "*.js"); do cp ${jsname} /scripts/wenmoux_${jsname##*/}; done
+}
+
 function zcy01(){
     # https://raw.githubusercontent.com/ZCY01/daily_scripts/main/jd/jd_try.js
     wget -qO /scripts/zcy01_jd_try.js https://raw.githubusercontent.com/ZCY01/daily_scripts/main/jd/jd_try.js
@@ -46,7 +54,7 @@ function zcy01(){
 
 function diycron(){
     # monkcoder whyour 定时任务
-    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/owner_*.js /scripts/longzhuzhu_*.js; do
+    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/owner_*.js /scripts/longzhuzhu_*.js  /scripts/wenmoux_*.js ; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3).log 2>&1" >> /scripts/docker/merged_list_file.sh
     done
