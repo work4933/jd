@@ -26,10 +26,11 @@ function owner(){
 
 function monkcoder(){
     # https://github.com/monk-coder/dust
-    rm -rf /monkcoder /scripts/dust_*
-    git clone https://github.com/PalmerCharles/monk-dust.git /monkcoder
+    rm -rf /scripts/dust_*
+    #git clone https://github.com/PalmerCharles/monk-dust.git /monkcoder
+    git clone https://github.com/mengdie101/Myactions.git /mengdie101
     # 拷贝脚本
-    for jsname in $(find /monkcoder -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/dust_${jsname##*/}; done
+    for jsname in $(find /mengdie101/dust -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/dust_${jsname##*/}; done
 }
 
 function whyour(){
