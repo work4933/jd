@@ -53,7 +53,6 @@ function zcy01(){
 }
 
 function diycron(){
-    # monkcoder whyour 定时任务
     for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/owner_*.js /scripts/longzhuzhu_*.js  /scripts/wenmoux_*.js ; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3).log 2>&1" >> /scripts/docker/merged_list_file.sh
@@ -72,6 +71,7 @@ function main(){
     a_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     a_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
     owner
+    wenmoux
     monkcoder
     whyour
     #zcy01
