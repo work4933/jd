@@ -5,7 +5,7 @@
 
 function monkcoder(){
     # https://github.com/monk-coder/dust
-    rm -rf /monkcoder /scripts/monkcoder_*
+    rm -rf /monkcoder /scripts/dust_*
     git clone https://github.com/mengdie101/Myactions.git /monkcoder
     for jsname in $(find /monkcoder/dust -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/dust_${jsname##*/}; done
 }
@@ -21,8 +21,8 @@ function nianyuguai(){
     # https://github.com/nianyuguai/longzhuzhu.git
     rm -rf /longzhuzhu /scripts/longzhuzhu_*
     git clone -b main https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
-    for jsname in $(ls /longzhuzhu/qx | grep -oE ".*\js$"); do cp -rf /longzhuzhu/qx/$jsname /scripts/longzhuzhu_$jsname; done
-    for jsonname in $(ls /longzhuzhu/qx | grep -oE ".*\json$"); do cp -rf /longzhuzhu/qx/$jsonname /scripts/$jsonname; done
+    for jsname in $(find /longzhuzhu/qx -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/longzhuzhu_${jsname##*/}; done
+    for jsonname in $(find /longzhuzhu/qx -name "*.json" | grep -vE "\/backup\/"); do cp ${jsonname} /scripts/${jsname##*/}; done
 }
 
 function zcy01(){
@@ -35,7 +35,7 @@ function wenmoux(){
     # https://github.com/monk-coder/dust
     rm -rf /wenmoux /scripts/wenmoux_*
     git clone https://github.com/Wenmoux/scripts.git /wenmoux
-    for jsname in $(find /wenmoux -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/wenmoux_${jsname##*/}; done
+    for jsname in $(find /wenmoux/jd -name "*.js"); do cp ${jsname} /scripts/wenmoux_${jsname##*/}; done
 }
 
 function diycron(){
@@ -49,13 +49,13 @@ function diycron(){
 }
 
 function main(){
+    cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
+    cd / && pip3 install wheel telethon pysocks httpx requests Cython
     # 首次运行时拷贝docker目录下文件
     [[ ! -d /jd_sku ]] && mkdir /jd_sku && cp -rf /scripts/docker/* /jd_sku
     # DIY脚本
     a_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     a_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
-    cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
-    cd / && pip3 install wheel telethon pysocks httpx requests Cython
     monkcoder
     wenmoux
     whyour
