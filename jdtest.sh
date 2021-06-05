@@ -40,10 +40,10 @@ function whyour(){
 }
 
 function wenmoux(){
-    rm -rf /wenmoux /scripts/wenmoux_*
-    git clone https://github.com/Wenmoux/scripts.git /wenmoux
+    rm -rf /scripts/wenmoux_*
+    git -C /wenmoux pull
     # 拷贝脚本
-    for jsname in $(find /wenmoux/jd -name "*.js"); do cp ${jsname} /scripts/wenmoux_${jsname##*/}; done
+    for jsname in $(find /wenmoux -name "*.js"); do cp ${jsname} /scripts/wenmoux_${jsname##*/}; done
 }
 
 function zcy01(){
