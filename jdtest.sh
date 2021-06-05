@@ -8,16 +8,16 @@
 function owner(){
     cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
     cd / && pip3 install wheel telethon pysocks httpx requests Cython
+    git clone https://github.com/mengdie101/Myactions.git /mengdie101
     git clone https://github.com/Wenmoux/scripts.git /wenmoux
-    git clone https://github.com/sngxpro/QuanX.git /sngxpro
-    git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
-    git clone https://github.com/Tartarus2014/Script.git /Tartarus2014
     git clone https://github.com/whyour/hundun.git /whyour
-    git clone https://github.com/moposmall/Script.git /moposmall
-    git clone https://gitee.com/qq34347476/quantumult-x /qq34347476
-    git clone https://github.com/yichahucha/surge.git /yichahucha
-    git clone https://github.com/PalmerCharles/monk-dust.git /monk-coder
-    # https://github.com/monk-coder/dust
+    git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
+    #git clone https://github.com/sngxpro/QuanX.git /sngxpro
+    #git clone https://github.com/Tartarus2014/Script.git /Tartarus2014
+    #git clone https://github.com/moposmall/Script.git /moposmall
+    #git clone https://gitee.com/qq34347476/quantumult-x /qq34347476
+    #git clone https://github.com/yichahucha/surge.git /yichahucha
+    #git clone https://github.com/PalmerCharles/monk-dust.git /monk-coder
     rm -rf /scripts/longzhuzhu_*
     # 拷贝脚本
     for jsname in $(find /longzhuzhu/qx -name "*.js"); do cp -rf ${jsname} /scripts/longzhuzhu_${jsname##*/}; done
@@ -28,15 +28,13 @@ function monkcoder(){
     # https://github.com/monk-coder/dust
     rm -rf /scripts/dust_*
     #git clone https://github.com/PalmerCharles/monk-dust.git /monkcoder
-    git clone https://github.com/mengdie101/Myactions.git /mengdie101
     # 拷贝脚本
     for jsname in $(find /mengdie101/dust -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/dust_${jsname##*/}; done
 }
 
 function whyour(){
     # https://github.com/whyour/hundun/tree/master/quanx
-    rm -rf /whyour /scripts/whyour_*
-    git clone https://github.com/whyour/hundun.git /whyour
+    rm -rf /scripts/whyour_*
     for jsname in jdzz.js jx_nc.js jx_factory.js jx_factory_component.js ddxw.js dd_factory.js jd_zjd_tuan.js; do cp -rf /whyour/quanx/$jsname /scripts/whyour_$jsname; done
 }
 
@@ -54,7 +52,7 @@ function zcy01(){
 }
 
 function diycron(){
-    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/owner_*.js /scripts/longzhuzhu_*.js  /scripts/wenmoux_*.js ; do
+    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/owner_*.js /scripts/longzhuzhu_*.js; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3).log 2>&1" >> /scripts/docker/merged_list_file.sh
     done
