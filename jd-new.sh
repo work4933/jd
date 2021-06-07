@@ -8,6 +8,7 @@
 function owner(){
     cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
     cd / && pip3 install wheel telethon pysocks httpx requests Cython
+    git clone https://github.com/longzhuzhu/nianyu.git /nianyu
     git clone https://github.com/mengdie101/Myactions.git /mengdie101
     git clone https://github.com/Wenmoux/scripts.git /wenmoux
     git clone https://github.com/whyour/hundun.git /whyour
@@ -21,10 +22,10 @@ function owner(){
 }
 
 
-function longzhuzhu(){
-    rm -rf /scripts/longzhuzhu_*
-    for jsname in $(find /longzhuzhu/qx -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/longzhuzhu_${jsname##*/}; done
-    for jsonname in $(find /longzhuzhu/qx -name "*.json" | grep -vE "\/backup\/"); do cp ${jsonname} /scripts/${jsonname##*/}; done
+function nianyu(){
+    rm -rf /scripts/nianyu_*
+    for jsname in $(find /nianyu/qx -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/nianyu_${jsname##*/}; done
+    for jsonname in $(find /nianyu/qx -name "*.json" | grep -vE "\/backup\/"); do cp ${jsonname} /scripts/${jsonname##*/}; done
 }
 
 function monkcoder(){
@@ -50,7 +51,7 @@ function zcy01(){
 }
 
 function diycron(){
-    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/wenmoux_*.js /scripts/owner_*.js; do
+    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/wenmoux_*.js /scripts/nianyu_*.js /scripts/owner_*.js; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3 | cut -d. -f1).log 2>&1" >> /scripts/docker/merged_list_file.sh
     done
@@ -68,10 +69,11 @@ function main(){
     a_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     a_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
     owner
+    nianyu
     wenmoux
     monkcoder
     whyour
-    #zcy01
+    zcy01
     b_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     b_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
     # DIY任务
