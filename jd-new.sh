@@ -8,10 +8,15 @@
 function owner(){
     cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
     cd / && pip3 install wheel telethon pysocks httpx requests Cython
+    wget -O https://raw.githubusercontent.com/work4933/jd/main/test_jd_necklace.js /scripts/owner_jd_necklace.js 
     git clone https://github.com/JDHelloWorld/jd_scripts.git /JDHello
     git clone https://github.com/longzhuzhu/nianyu.git /nianyu
     git clone https://github.com/mengdie101/Myactions.git /mengdie101
-    git clone https://github.com/Wenmoux/scripts.git /wenmoux
+    git clone -b wen https://github.com/Wenmoux/scripts.git /wenmoux
+    git clone https://github.com/jiulan/platypus.git /jiulan
+    git clone https://github.com/moposmall/Script.git /moposmall
+    git clone https://github.com/panghu999/panghu.git /panghu99
+    git clone https://github.com/star261/jd.git /star261
     git clone https://github.com/whyour/hundun.git /whyour
     #git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
     #git clone https://github.com/sngxpro/QuanX.git /sngxpro
@@ -22,9 +27,29 @@ function owner(){
     #git clone https://github.com/PalmerCharles/monk-dust.git /monk-coder
 }
 
+function jiulan(){
+    rm -rf /scripts/jiulan_*
+    for jsname in $(find /jiulan -name "*.js" | grep -vE "\/backup\/"| grep -vE "Opencard"); do cp ${jsname} /scripts/jiulan_${jsname##*/}; done
+}
+
+function moposmall(){
+    rm -rf /scripts/moposmall_*
+    for jsname in $(find /moposmall/Me -name "*.js" | grep -vE "\/backup\/"| grep -vE "Opencard"); do cp ${jsname} /scripts/moposmall_${jsname##*/}; done
+}
+
+function panghu99(){
+    rm -rf /scripts/panghu99_*
+    for jsname in $(find /panghu99 -name "*.js" | grep -vE "\/backup\/"| grep -vE "Opencard"); do cp ${jsname} /scripts/panghu99_${jsname##*/}; done
+}
+
+function star261(){
+    rm -rf /scripts/star261_*
+    for jsname in $(find /star261 -name "*.js" | grep -vE "\/backup\/"| grep -vE "Opencard"); do cp ${jsname} /scripts/star261_${jsname##*/}; done
+}
+
 function JDHelloWorld(){
     rm -rf /scripts/he_*
-    for jsname in $(find /JDHello -name "*.js" | grep -vE "\/backup\/" | grep -vE "open"); do cp ${jsname} /scripts/he_${jsname##*/}; done
+    for jsname in $(find /JDHello -name "*.js" | grep -vE "\/backup\/" | grep -vE "Opencard"); do cp ${jsname} /scripts/he_${jsname##*/}; done
 }
 
 function nianyu(){
@@ -56,7 +81,7 @@ function zcy01(){
 }
 
 function diycron(){
-    for jsname in /scripts/dust_*.js /scripts/he_*.js /scripts/whyour_*.js /scripts/wenmoux_*.js /scripts/nianyu_*.js /scripts/owner_*.js; do
+    for jsname in /scripts/dust_*.js /scripts/he_*.js /scripts/whyour_*.js /scripts/wenmoux_*.js /scripts/nianyu_*.js /scripts/jiulan_*.js /scripts/moposmall_*.js /scripts/panghu99_*.js /scripts/star261_*.js /scripts/owner_*.js; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3 | cut -d. -f1).log 2>&1" >> /scripts/docker/merged_list_file.sh
     done
@@ -79,6 +104,10 @@ function main(){
     wenmoux
     monkcoder
     whyour
+    jiulan
+    moposmall
+    panghu99
+    star261
     zcy01
     b_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     b_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
