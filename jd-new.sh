@@ -12,12 +12,10 @@ function owner(){
     git clone https://github.com/JDHelloWorld/jd_scripts.git /JDHello
     git clone https://github.com/whyour/hundun.git /whyour
     git clone https://github.com/longzhuzhu/nianyu.git /nianyu
-    git clone https://github.com/mengdie101/Myactions.git /mengdie101
-    git clone -b wen https://github.com/Wenmoux/scripts.git /wenmoux
     git clone https://github.com/panghu999/panghu.git /panghu99
-    #git clone https://github.com/jiulan/platypus.git /jiulan
-    #git clone https://github.com/moposmall/Script.git /moposmall
-    #git clone https://github.com/star261/jd.git /star261
+    git clone https://github.com/jiulan/platypus.git /jiulan
+    git clone https://github.com/moposmall/Script.git /moposmall
+    git clone https://github.com/star261/jd.git /star261
     #git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
     #git clone https://github.com/sngxpro/QuanX.git /sngxpro
     #git clone https://github.com/Tartarus2014/Script.git /Tartarus2014
@@ -58,20 +56,10 @@ function nianyu(){
     for jsonname in $(find /nianyu/qx -name "*.json" | grep -vE "\/backup\/"); do cp ${jsonname} /scripts/${jsonname##*/}; done
 }
 
-function monkcoder(){
-    rm -rf /scripts/dust_*
-    for jsname in $(find /mengdie101/dust -name "*.js" | grep -vE "\/backup\/"); do cp ${jsname} /scripts/dust_${jsname##*/}; done
-}
-
 function whyour(){
     # https://github.com/whyour/hundun/tree/master/quanx
     rm -rf /scripts/whyour_*
     for jsname in jdzz.js jx_nc.js jx_factory.js jx_factory_component.js ddxw.js dd_factory.js jd_zjd_tuan.js; do cp -rf /whyour/quanx/$jsname /scripts/whyour_$jsname; done
-}
-
-function wenmoux(){
-    rm -rf /scripts/wenmoux_*.js
-    for jsname in $(find /wenmoux/jd -name "*.js"); do cp ${jsname} /scripts/wenmoux_${jsname##*/}; done
 }
 
 function zcy01(){
@@ -81,7 +69,7 @@ function zcy01(){
 }
 
 function diycron(){
-    for jsname in /scripts/he_*.js /scripts/whyour_*.js /scripts/wenmoux_*.js /scripts/nianyu_*.js /scripts/owner_*.js; do
+    for jsname in /scripts/he_*.js /scripts/whyour_*.js /scripts/nianyu_*.js /scripts/jiulan_*.js /scripts/moposmall_*.js /scripts/panghu99_*.js /scripts/star261_*.js /scripts/owner_*.js; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3 | cut -d. -f1).log 2>&1" >> /scripts/docker/merged_list_file.sh
     done
@@ -101,8 +89,6 @@ function main(){
     owner
     JDHelloWorld
     nianyu
-    wenmoux
-    monkcoder
     whyour
     jiulan
     moposmall
