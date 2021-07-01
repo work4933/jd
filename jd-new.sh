@@ -81,7 +81,7 @@ function zcy01(){
 }
 
 function diycron(){
-    for jsname in /scripts/dust_*.js /scripts/he_*.js /scripts/whyour_*.js /scripts/wenmoux_*.js /scripts/nianyu_*.js /scripts/jiulan_*.js /scripts/moposmall_*.js /scripts/panghu99_*.js /scripts/star261_*.js /scripts/owner_*.js; do
+    for jsname in /scripts/he_*.js /scripts/whyour_*.js /scripts/wenmoux_*.js /scripts/nianyu_*.js /scripts/jiulan_*.js /scripts/moposmall_*.js /scripts/panghu99_*.js /scripts/star261_*.js /scripts/owner_*.js; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3 | cut -d. -f1).log 2>&1" >> /scripts/docker/merged_list_file.sh
     done
