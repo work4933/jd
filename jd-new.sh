@@ -10,14 +10,14 @@ function owner(){
     cd / && pip3 install wheel telethon pysocks httpx requests Cython
     wget -O https://raw.githubusercontent.com/work4933/jd/main/test_jd_necklace.js /scripts/owner_jd_necklace.js 
     git clone https://github.com/JDHelloWorld/jd_scripts.git /JDHello
+    git clone https://github.com/whyour/hundun.git /whyour
     git clone https://github.com/longzhuzhu/nianyu.git /nianyu
     git clone https://github.com/mengdie101/Myactions.git /mengdie101
     git clone -b wen https://github.com/Wenmoux/scripts.git /wenmoux
-    git clone https://github.com/jiulan/platypus.git /jiulan
-    git clone https://github.com/moposmall/Script.git /moposmall
     git clone https://github.com/panghu999/panghu.git /panghu99
-    git clone https://github.com/star261/jd.git /star261
-    git clone https://github.com/whyour/hundun.git /whyour
+    #git clone https://github.com/jiulan/platypus.git /jiulan
+    #git clone https://github.com/moposmall/Script.git /moposmall
+    #git clone https://github.com/star261/jd.git /star261
     #git clone https://github.com/nianyuguai/longzhuzhu.git /longzhuzhu
     #git clone https://github.com/sngxpro/QuanX.git /sngxpro
     #git clone https://github.com/Tartarus2014/Script.git /Tartarus2014
