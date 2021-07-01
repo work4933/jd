@@ -8,6 +8,7 @@
 function owner(){
     cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
     cd / && pip3 install wheel telethon pysocks httpx requests Cython
+    git clone https://github.com/JDHelloWorld/jd_scripts.git /JDHello
     git clone https://github.com/longzhuzhu/nianyu.git /nianyu
     git clone https://github.com/mengdie101/Myactions.git /mengdie101
     git clone https://github.com/Wenmoux/scripts.git /wenmoux
@@ -21,6 +22,10 @@ function owner(){
     #git clone https://github.com/PalmerCharles/monk-dust.git /monk-coder
 }
 
+function JDHelloWorld(){
+    rm -rf /scripts/he_*
+    for jsname in $(find /JDHello -name "*.js" | grep -vE "\/backup\/" | grep -vE "open"); do cp ${jsname} /scripts/he_${jsname##*/}; done
+}
 
 function nianyu(){
     rm -rf /scripts/nianyu_*
@@ -51,7 +56,7 @@ function zcy01(){
 }
 
 function diycron(){
-    for jsname in /scripts/dust_*.js /scripts/whyour_*.js /scripts/wenmoux_*.js /scripts/nianyu_*.js /scripts/owner_*.js; do
+    for jsname in /scripts/dust_*.js /scripts/he_*.js /scripts/whyour_*.js /scripts/wenmoux_*.js /scripts/nianyu_*.js /scripts/owner_*.js; do
         jsnamecron="$(cat $jsname | grep -oE "/?/?cron \".*\"" | cut -d\" -f2)"
         test -z "$jsnamecron" || echo "$jsnamecron node $jsname >> /scripts/logs/$(echo $jsname | cut -d/ -f3 | cut -d. -f1).log 2>&1" >> /scripts/docker/merged_list_file.sh
     done
@@ -69,6 +74,7 @@ function main(){
     a_jsnum=$(ls -l /scripts | grep -oE "^-.*js$" | wc -l)
     a_jsname=$(ls -l /scripts | grep -oE "^-.*js$" | grep -oE "[^ ]*js$")
     owner
+    JDHelloWorld
     nianyu
     wenmoux
     monkcoder
@@ -86,7 +92,7 @@ function main(){
     test -z "$lxktext" || curl -sX POST "https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage" -d "chat_id=$TG_USER_ID&text=LXK脚本更新完成：$(cat /jd_sku/crontab_list.sh | grep -vE "^#" | wc -l) $(cat /scripts/docker/crontab_list.sh | grep -vE "^#" | wc -l) $lxktext" >/dev/null
     # 拷贝docker目录下文件供下次更新时对比
     cp -rf /scripts/docker/* /jd_sku
-    cd /scripts && npm install --save got tough-cookie qiniu ws bufferutil utf-8-validate
+    cd /scripts && npm install --save got tough-cookie qiniu ws bufferutil utf-8-validate png-js
 }
 
 main
