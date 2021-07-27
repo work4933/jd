@@ -9,7 +9,7 @@ function owner(){
     cd / && apk update && apk upgrade && cd / && apk add --no-cache screen bash make wget vim curl python3-dev py3-pip py3-cryptography htop
     cd / && pip3 install wheel telethon pysocks httpx requests Cython
 	wget -O https://raw.githubusercontent.com/work4933/jd/main/test_jd_necklace.js /scripts/owner_jd_necklace.js 
-    git https://github.com/shufflewzc/faker2.git /shufflewzc
+    git clone https://github.com/shufflewzc/faker2.git /shufflewzc
 }
 
 function shufflewzc(){
